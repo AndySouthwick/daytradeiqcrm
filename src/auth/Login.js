@@ -20,7 +20,6 @@ class Login extends Component {
 
             this.props.dispatch(loginSuccess(response.data.loginUser))
             console.log(this.props.token)
-            localStorage.setItem('token', this.props.token)
         }).catch((error) => {
             this.props.dispatch(loginError(error.message))
         })

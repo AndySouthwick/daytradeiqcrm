@@ -7,13 +7,12 @@ class AuthService {
         $email: String!
         $password: String!)
         {
-            loginUser (
-            email: $email
-            password: $password
-        ){     
-                
-                token
-            }
+          loginUser (
+          email: $email
+          password: $password
+        ){
+            token
+          }
         }
     `
   getLoggedInUser = gql`

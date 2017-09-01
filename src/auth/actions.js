@@ -35,9 +35,3 @@ export function setProfile(profileData) {
         payload: profileData
     }
 }
-export function signUpError(message) {
-    return{
-        type: actionTypes.SIGN_UP_ERROR,
-        payload: message
-    }
-}

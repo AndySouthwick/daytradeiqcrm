@@ -15,21 +15,31 @@ class Auth extends Component {
     }
 
     componentWillMount() {
-        this.props.client.query({
-            query: AuthService.getLoggedInUser
-        }).then((resp) => {
-            console.log(resp.data.loggedInUser.email)
-            this.props.dispatch(setProfile(resp.data.loggedInUser.email))
-        }).catch((error) => {
-            console.error(error)
-        })
+      this.getUserProfile()
     }
 
-    render() {
+    getUserProfile () {
+      this.props.client.query({
+        query: AuthService.getLoggedInUser
+      }).then((resp) => {
+        console.log(resp.data.loggedInUser.email)
+        this.props.dispatch(setProfile(resp.data.loggedInUser.email))
+      }).catch((error) => {
+        console.error(error)
+      })
+    }
 
+
+
+  render() {
         if(this.props.token === null) {
-            return <Redirect to="/login"/>
+          return <Redirect to="/login"/>
         }
+
+        if (!this.props.email) {
+          this.getUserProfile()
+        }
+
         let userName = <span>Loading user profile</span>
         if (this.props.email !== null) {
             userName = <span>{this.props.email}</span>
@@ -39,8 +49,7 @@ class Auth extends Component {
                 <Row>
                     <Col>
                         <p>
-                            You've been authenticated: {userName}
-
+                            You've been authenticated: {userName}<br/>
                             <a href="/contactmanager">Contact Manager</a>
                         </p>
                         <Button type="button" color="primary" onClick={this.handleLogout}>Logout</Button>
